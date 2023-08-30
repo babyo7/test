@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Sharing App</title>
+</head>
+<body>
+    <h1>File Sharing App</h1>
+    <input type="file" id="file-input">
+    <button id="upload-btn">Upload File</button>
+    <div>
+        <input type="text" id="share-link-input" readonly>
+    </div>
+
+    <script>
+        const uploadButton = document.getElementById('upload-btn');
+        const fileInput = document.getElementById('file-input');
+        const shareLinkInput = document.getElementById('share-link-input');
+
+        uploadButton.addEventListener('click', async () => {
+            const file = fileInput.files[0];
+
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                const fileId = data.fileId;
+
+                const shareLink = `${window.location.origin}/share/${fileId}`;
+                shareLinkInput.value = shareLink;
+            }
+        });
+    </script>
+</body>
+</html>
