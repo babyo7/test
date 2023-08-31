@@ -44,7 +44,7 @@
         }
     </style>
 </head>
-<body>
+<body id="body">
     <div class="main" id="main">
         <h1>Upload and Download Files</h1>
         <div class="gta">
@@ -74,7 +74,8 @@
         const downloadLink = document.getElementById('downloadLink');
         const copyLinkButton = document.getElementById('copyLinkButton');
         const main = document.getElementById('main');
-
+        const body = document.getElementById('body');
+       body.style.position="fixed";
         uploadForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -97,6 +98,7 @@
                     downloadSection.style.display = 'block';
                     main.style.display='none';
                     downloadLink.href = publicDownloadLink;
+                    body.style.position='';
                     downloadLink.innerText = 'Download File';
                     copyLinkButton.style.display = 'block'; // Show the copy link button
                     copyLinkButton.addEventListener('click', () => {
