@@ -11,6 +11,11 @@ display: flex;
 align-items: center;
 justify-content: center;
 background-color: blanchedalmond;
+background-repeat: no-repeat;
+
+background-size: cover;
+background-position: center;
+background-image: url(https://static.vecteezy.com/system/resources/previews/009/362/398/non_2x/blue-dynamic-shape-abstract-background-suitable-for-web-and-mobile-app-backgrounds-eps-10-vector.jpg);
 
 }
 
