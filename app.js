@@ -88,7 +88,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
             <div class="main">
                 <h1>File uploaded Successfully</h1>
                 <a class="link download-link" href="${publicDownloadLink}" download>Direct Download Link</a>
-                <a class="link view-link" href="${publicViewLink}" target="_blank">Public Download Link</a>
+                <a class="link view-link" href="${publicViewLink}" target="_blank">View Download Link</a>
             </div>
         </body>
         </html>
