@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+    font-family: 'Poppins', sans serif;
+
+text-transform: uppercase;
+}
+
+body{
+height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: blanchedalmond;
+}
+
+.main{
+background-color: white;
+   height: 300px;
+   width: 700px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.gta{
+width: 600px;
+    overflow: hidden;
+   
+}
+input[type="file"] {
+    width:100vw;
+    max-width:100%;  
+    white-space: normal;
+    word-wrap: break-word; 
+    } 
+
+input::file-selector-button {
+    text-transform: uppercase;
+
+    background-color: rgba(255, 255, 255, 0.973);
+    padding: 3px;
+    margin-bottom: 30px;
+    border-radius: 40px;
+    padding-left: 40px;
+    padding-right: 30px;
+    font-size: medium;
+    padding-top: 7px;
+    padding-bottom: 7px;
+border: none;
+border: solid;
+
+  } 
+
+button {
+    
+    padding: 3px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+border: none;
+border: solid;
+    font-size: medium;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+
+}
+
+
+input::file-selector-button:hover{
+
+    background-color: black;
+    color: white;
+}
+
+button:hover{
+    background-color: black;
+    color: white;
+}
+
+
+@media only screen and (max-width: 800px){
+
+    body{
+    position: fixed;
+    }
+
+    .main{
+
+        height: 300px;
+        width: 300px;
+        display: inline-block;  
+        
+    }
+
+form{ 
+    width: 300px;
+}
+    
+}

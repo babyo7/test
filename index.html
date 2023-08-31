@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload and Download</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="main">
     <h1>Upload and Download Files</h1>
-    
+    <div class="gta">
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" multiple>
-        <button type="submit">Upload</button>
+        <input id="file" type="file" name="file" multiple>
+        <button id="upload" type="submit">Upload</button>
     </form>
+    </div>
 
     <div id="downloadSection" style="display: none;">
         <h2>Download Link:</h2>
         <a id="downloadLink" href="" download>Download File</a>
     </div>
-
+</div>
     <script>
         const downloadSection = document.getElementById('downloadSection');
         const downloadLink = document.getElementById('downloadLink');
+        const file = document.getElementById('file');
 
+
+
+        
+    
+            file.value = '';
         // Check if the URL has a "downloadLink" query parameter
         const urlParams = new URLSearchParams(window.location.search);
         const link = urlParams.get('downloadLink');
@@ -31,6 +40,15 @@
             downloadSection.style.display = 'block';
             downloadLink.href = link;
         }
+
+
+
+
+
+
+
+
+
     </script>
 </body>
 </html>
