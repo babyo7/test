@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and Download</title>
+</head>
+<body>
+    <h1>Upload and Download Files</h1>
+    
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".txt">
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="downloadSection" style="display: none;">
+        <h2>Download Link:</h2>
+        <a id="downloadLink" href="" download>Download File</a>
+    </div>
+
+    <script>
+        const downloadSection = document.getElementById('downloadSection');
+        const downloadLink = document.getElementById('downloadLink');
+
+        // Check if the URL has a "downloadLink" query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const link = urlParams.get('downloadLink');
+
+        if (link) {
+            // Show the download section and set the download link
+            downloadSection.style.display = 'block';
+            downloadLink.href = link;
+        }
+    </script>
+</body>
+</html>
