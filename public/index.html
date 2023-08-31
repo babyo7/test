@@ -5,51 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload and Download</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-
 </head>
 <body>
-    <div class="main">
-    <h1>Upload and Download Files</h1>
-    <div class="gta">
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input id="file" type="file" name="file" multiple>
-        <button id="upload" type="submit">Upload</button>
-    </form>
+    <div class="main" id="main">
+        <h1>Upload and Download Files</h1>
+        <div class="gta">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input id="file" type="file" name="file" multiple>
+                <button id="upload" type="submit">Upload</button>
+            </form>
+            <div id="progressWrapper" style="display: none;">
+                <div id="progressBar"></div>
+            </div>
+        </div>
+        <div id="uploadProgress" style="display: none; margin-left: 10px; margin-top: 10px;">Uploading...</div>
     </div>
 
     <div id="downloadSection" style="display: none;">
         <h2>Download Link:</h2>
         <a id="downloadLink" href="" download>Download File</a>
+        <button id="copyLinkButton" style="margin-top: 10px;">Copy Download Link</button>
     </div>
-</div>
+
     <script>
+        const uploadForm = document.querySelector('form');
+        const progressWrapper = document.getElementById('progressWrapper');
+        const progressBar = document.getElementById('progressBar');
+        const uploadProgress = document.getElementById('uploadProgress');
         const downloadSection = document.getElementById('downloadSection');
         const downloadLink = document.getElementById('downloadLink');
-        const file = document.getElementById('file');
+        const copyLinkButton = document.getElementById('copyLinkButton');
+        const fileInput = document.getElementById('file');
 
+        const main = document.getElementById('main');
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
 
+            const formData = new FormData(uploadForm);
 
-        
-    
-            file.value = '';
-        // Check if the URL has a "downloadLink" query parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const link = urlParams.get('downloadLink');
+            const request = new XMLHttpRequest();
+            request.open('POST', '/upload');
+            request.upload.addEventListener('progress', (event) => {
+                if (event.lengthComputable) {
+                    const percent = (event.loaded / event.total) * 100;
+                    progressBar.style.width = percent + '%';
+                }
+            });
 
-        if (link) {
-            // Show the download section and set the download link
-            downloadSection.style.display = 'block';
-            downloadLink.href = link;
-        }
+            request.onload = () => {
+                if (request.status === 200) {
+                    progressWrapper.style.display = 'none';
+                    uploadProgress.style.display = 'none';
+                    const response = JSON.parse(request.responseText);
+                    const publicDownloadLink = response.publicDownloadLink;
+                    downloadSection.style.display = 'block';
+                    downloadLink.href = publicDownloadLink;
+                    main.style.display = "none";
+                }
+            };
 
+            request.send(formData);
+            progressWrapper.style.display = 'block';
+            uploadProgress.style.display = 'block';
+            progressBar.style.width = '0%'; // Reset progress bar width
+            fileInput.value = ''; // Clear file input
+        });
 
-
-
-
-
-
-
-
+        copyLinkButton.addEventListener('click', () => {
+            const tempInput = document.createElement('input');
+            tempInput.value = downloadLink.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Download Link Copied to Clipboard');
+        });
     </script>
 </body>
 </html>

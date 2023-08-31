@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
@@ -14,7 +23,6 @@ const oAuth2Client = new google.auth.OAuth2(
 
 app.use(express.static('public'));
 
-// Set up file upload using Multer
 const storage = multer.diskStorage({
     destination: './uploads',
     filename: (req, file, cb) => {
@@ -23,7 +31,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Authenticate and authorize the client
 async function authorize() {
     const credentials = await fs.promises.readFile('token.json');
     oAuth2Client.setCredentials(JSON.parse(credentials));
@@ -76,63 +83,9 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
         const publicDownloadLink = `https://drive.google.com/uc?id=${uploadedFileId}`;
         const publicViewLink = `https://drive.google.com/file/d/${uploadedFileId}/view?usp=sharing`;
-        res.send(`
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>File Upload and Download</title>
-            <link rel="stylesheet" type="text/css" href="style.css">
-            <style>
-                /* Style for the links */
-                .link {
-                    font-size: 16px;
-                    margin-right: 10px; /* Add margin to the right of each link */
-                }
-    
-                .link:last-child {
-                    margin-right: 0; /* Remove margin from the last link */
-                }
-    
-                .download-link, .view-link, .copy-link {
-                    
-                    margin-top: 5px;
-                    color: #007bff;
-                    text-decoration: none;
-                    padding: 5px 10px;
-                    border: 1px solid #007bff;
-                    border-radius: 5px;
-                    transition: background-color 0.3s, color 0.3s;
-                }
-    
-                .download-link:hover, .view-link:hover, .copy-link:hover {
-                    background-color: #007bff;
-                    color: white;
-                }
-            </style>
-            <script>
-                function copyToClipboard(text) {
-                    const tempInput = document.createElement('input');
-                    tempInput.value = text;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    alert("Link Copied to Clipboard");
-                }
-            </script>
-        </head>
-        <body>
-            <div class="main">
-                <h1>File uploaded Successfully</h1>
-                <a class="link download-link" href="${publicDownloadLink}" download>Direct Download Link</a>
-                <a class="link view-link" href="${publicViewLink}" target="_blank">View Download Link</a>
-                <a class="link copy-link" href="javascript:void(0);" onclick="copyToClipboard('${publicDownloadLink}')">Copy Link</a>
-            </div>
-        </body>
-        </html>
-    `);
-    
+
+        res.json({ publicDownloadLink }); // Return download link as JSON response
+        
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Error uploading and generating links.');
@@ -142,4 +95,3 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
- 
