@@ -76,23 +76,16 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
         const publicDownloadLink = `https://drive.google.com/uc?id=${uploadedFileId}`;
         const publicViewLink = `https://drive.google.com/file/d/${uploadedFileId}/view?usp=sharing`;
-        res.send(`
-<<<<<<< HEAD
-        <div class="upload-message">
-            <p class="success-message">File uploaded successfully!</p>
-            <p class="link">
-                <a class="download-link" href="${publicDownloadLink}" download>Direct Download Link</a><br>
-                <a class="view-link" href="${publicViewLink}" target="_blank">Public View Link</a>
-            </p>
-        </div>
-    `);
-    
-=======
-            File uploaded to Google Drive!<br>
-            <a href="${publicDownloadLink}" download>Public Download Link</a><br>
-            <a href="${publicViewLink}" target="_blank">Public View Link</a>
-        `);
->>>>>>> parent of bc69fc7 (ss)
+res.send(`
+    <div class="upload-message">
+        <p class="success-message">File uploaded successfully!</p>
+        <p class="link">
+            <a class="download-link" href="${publicDownloadLink}" download>Direct Download Link</a><br>
+            <a class="view-link" href="${publicViewLink}" target="_blank">Public View Link</a>
+        </p>
+    </div>
+`);
+
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Error uploading and generating links.');
