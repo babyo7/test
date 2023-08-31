@@ -95,7 +95,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
                 }
     
                 .download-link, .view-link, .copy-link {
-                    display: inline-block;
+                    
                     margin-top: 5px;
                     color: #007bff;
                     text-decoration: none;
