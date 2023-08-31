@@ -125,3 +125,38 @@ form{
         border-radius: 30px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
+
+    /* Style for the upload message */
+.upload-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style for the success message */
+.success-message {
+    font-size: 20px;
+    color: green;
+    margin-bottom: 10px;
+}
+
+/* Style for the links */
+.link {
+    font-size: 16px;
+}
+
+.download-link, .view-link {
+    display: inline-block;
+    margin-top: 5px;
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.download-link:hover, .view-link:hover {
+    background-color: #007bff;
+    color: white;
+}
+
