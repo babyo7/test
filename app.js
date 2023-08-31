@@ -9,7 +9,7 @@ const port = 3000;
 const oAuth2Client = new google.auth.OAuth2(
     "688965129705-tjcogrfn14ugcph87qoi59m3lumd2pa8.apps.googleusercontent.com",
     "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",
-    "https://test-psi-seven-55.vercel.app"
+    "https://test-psi-seven-55.vercel.app/callback"
 );
 
 app.use(express.static('public'));
