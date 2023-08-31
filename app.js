@@ -118,6 +118,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
                     tempInput.select();
                     document.execCommand('copy');
                     document.body.removeChild(tempInput);
+                    alert("Link Copied to Clipboard");
                 }
             </script>
         </head>
