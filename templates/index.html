@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Sharing Web App</title>
+</head>
+<body>
+    <h1>File Sharing Web App</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    
+    {% if uploaded_filename %}
+    <p>File uploaded: {{ uploaded_filename }}</p>
+    {% endif %}
+    
+    <h2>Uploaded Files:</h2>
+    <ul>
+        {% for filename in filenames %}
+        <li><a href="{{ url_for('download_file', filename=filename) }}" target="_blank">{{ filename }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
