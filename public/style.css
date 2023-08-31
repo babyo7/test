@@ -114,11 +114,17 @@ form{
     
 }
 
+#copyLink{
 
+    font-size: 13px;
+    margin-left: 10px;
+    width: 270px;
+
+}
 #downloadSection{
     background-color: white;
        height: 300px;
-       width: 700px;
+       width: 300px;
       justify-content: center;
       align-items: center;
       display: flex;

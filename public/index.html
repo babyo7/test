@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload and Download</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        #qrcode {
+            text-align: center;
+            margin-top: 30px;
+            margin-left: 80px;
+            width: 130px;
+            height: 130px;
+        }
+
+        #uploadProgress {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #progressBar {
+            width: 100%;
+            height: 10px;
+            background-color: #007bff;
+        }
+    </style>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 </head>
 <body>
     <div class="main" id="main">
@@ -18,26 +39,40 @@
                 <div id="progressBar"></div>
             </div>
         </div>
-        <div id="uploadProgress" style="display: none; margin-left: 10px; margin-top: 10px;">Uploading...</div>
+        <div id="uploadProgress" style="display: none; margin-top: 10px;">Uploading...
+            <div id="progressBar"></div>
+        </div>
     </div>
 
     <div id="downloadSection" style="display: none;">
         <h2>Download Link:</h2>
-        <a id="downloadLink" href="" download>Download File</a>
-        <button id="copyLinkButton" style="margin-top: 10px;">Copy Download Link</button>
+        <a id="downloadLink" href="" download style="display: none;">Download File</a>
+        <button id="copyLink" onclick="copyToClipboard(document.getElementById('downloadLink').href)">Copy Link</button>
+        <div id="qrcode"></div>
     </div>
 
     <script>
         const uploadForm = document.querySelector('form');
         const progressWrapper = document.getElementById('progressWrapper');
-        const progressBar = document.getElementById('progressBar');
+        const progressBarUpload = document.getElementById('progressBar');
         const uploadProgress = document.getElementById('uploadProgress');
+        const progressBar = uploadProgress.querySelector('#progressBar');
         const downloadSection = document.getElementById('downloadSection');
         const downloadLink = document.getElementById('downloadLink');
-        const copyLinkButton = document.getElementById('copyLinkButton');
+        const copyLinkButton = document.getElementById('copyLink');
         const fileInput = document.getElementById('file');
-
         const main = document.getElementById('main');
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert("Link Copied to Clipboard");
+        }
+
         uploadForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -48,7 +83,8 @@
             request.upload.addEventListener('progress', (event) => {
                 if (event.lengthComputable) {
                     const percent = (event.loaded / event.total) * 100;
-                    progressBar.style.width = percent + '%';
+                  
+                    uploadProgress.textContent = `Uploading... ${Math.floor(percent)}%`;
                 }
             });
 
@@ -60,25 +96,25 @@
                     const publicDownloadLink = response.publicDownloadLink;
                     downloadSection.style.display = 'block';
                     downloadLink.href = publicDownloadLink;
-                    main.style.display = "none";
+                    main.style.display = 'none';
+
+                    // Generate QR code
+                    const qrcodeDiv = document.getElementById('qrcode');
+                    const qrcode = new QRCode(qrcodeDiv, {
+                        text: publicDownloadLink,
+                        width: 128,
+                        height: 128,
+                    });
                 }
             };
 
             request.send(formData);
             progressWrapper.style.display = 'block';
             uploadProgress.style.display = 'block';
-            progressBar.style.width = '0%'; // Reset progress bar width
+            progressBarUpload.style.width = '0%'; // Reset progress bar width
+            progressBar.style.width = '0%'; // Reset progress bar width for uploadProgress
+            uploadProgress.textContent = 'Uploading... 0%';
             fileInput.value = ''; // Clear file input
-        });
-
-        copyLinkButton.addEventListener('click', () => {
-            const tempInput = document.createElement('input');
-            tempInput.value = downloadLink.href;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('Download Link Copied to Clipboard');
         });
     </script>
 </body>
