@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+
     <div class="main" id="main">
         <h1>Upload and Download Files</h1>
         <div class="gta">
@@ -19,6 +20,15 @@
             </div>
         </div>
         <div id="uploadProgress" style="display: none; margin-left: 10px; margin-top: 10px;">Uploading...</div>
+
+    <div class="main">
+    <h1>Upload and Download Files</h1>
+    <div class="gta">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input id="file" type="file" name="file">
+        <button id="upload" type="submit">Upload</button>
+    </form>
+
     </div>
 
     <div id="downloadSection" style="display: none;">
