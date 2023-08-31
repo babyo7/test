@@ -75,16 +75,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         const uploadedFileId = await uploadFile(req.file);
 
         const publicDownloadLink = `https://drive.google.com/uc?id=${uploadedFileId}`;
-        const publicViewLink = `https://drive.google.com/file/d/${uploadedFileId}/view?usp=sharing`;
-res.send(`
-    <div class="upload-message">
-        <p class="success-message">File uploaded successfully!</p>
-        <p class="link">
-            <a class="download-link" href="${publicDownloadLink}" download>Direct Download Link</a><br>
-            <a class="view-link" href="${publicViewLink}" target="_blank">Public View Link</a>
-        </p>
-    </div>
-`);
+        res.json({ publicDownloadLink }); // Sending JSON response for XMLHttpRequest
 
     } catch (err) {
         console.error('Error:', err);

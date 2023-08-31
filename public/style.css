@@ -21,6 +21,7 @@ background-color: white;
   align-items: center;
   display: flex;
     padding: 30px;
+    position: relative;
     border-radius: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -106,7 +107,8 @@ form{
 
     height: 300px;
     width: 300px;
-    display: inline-block;  
+    display: inline-block;
+    position: fixed;  
     
 }
 
@@ -117,10 +119,10 @@ form{
 #downloadSection{
     background-color: white;
        height: 300px;
-       width: 700px;
+       width: 300px;
       justify-content: center;
       align-items: center;
-      display: flex;
+     position: absolute;
         padding: 30px;
         border-radius: 30px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -128,15 +130,44 @@ form{
 
     /* Style for the upload message */
 .upload-message {
-    text-align: center;
-    margin-top: 20px;
+    background-color: white;
+   height: 300px;
+   width: 700px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
+
+
+
+.progress-line {
+    width: 0;
+    height: 2px;
+    background-color: black;
+    position: absolute;
+    top: calc(50% + 5px); /* Adjust the positioning as needed */
+    left: 0;
+    transition: width 0.1s ease-in-out; /* Add a smooth transition effect */
+}
+
+
+
 
 /* Style for the success message */
 .success-message {
-    font-size: 20px;
-    color: green;
-    margin-bottom: 10px;
+    background-color: white;
+   height: 300px;
+   width: 700px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* Style for the links */
@@ -145,6 +176,7 @@ form{
 }
 
 .download-link, .view-link {
+
     display: inline-block;
     margin-top: 5px;
     color: #007bff;
@@ -160,3 +192,11 @@ form{
     color: white;
 }
 
+.link {
+    font-size: 16px;
+    margin-right: 10px; /* Add margin to the right of each link */
+}
+
+.link:last-child {
+    margin-right: 0; /* Remove margin from the last link */
+}
