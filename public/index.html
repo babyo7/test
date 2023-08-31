@@ -5,117 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload and Download</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        /* ... Your existing CSS styles ... */
 
-        /* Define the progress bar styles */
-        #progressWrapper {
-            position: relative;
-            height: 2px;
-            width: 100%;
-            background-color: #ccc;
-            margin-top: 5px;
-            display: none;
-        }
-
-        #progressBar {
-            position: absolute;
-            height: 100%;
-            width: 0;
-            background-color: black;
-        }
-
-        /* Style for the copy link button */
-        #copyLinkButton {
-            display: none;
-            margin-top: 10px;
-            font-size: 16px;
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        #copyLinkButton:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
-<body id="body">
-    <div class="main" id="main">
-        <h1>Upload and Download Files</h1>
-        <div class="gta">
-            <form id="uploadForm" enctype="multipart/form-data">
-                <input id="file" type="file" name="file" multiple>
-                <button id="upload" type="submit">Upload</button>
-                <div id="progressWrapper" style="margin-top: 17px; margin-left: 7px; width: 300px;">
-                    <div id="progressBar"></div>
-                </div>
-            </form>
-        </div>
+<body>
+    <div class="main">
+    <h1>Upload and Download Files</h1>
+    <div class="gta">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input id="file" type="file" name="file" multiple>
+        <button id="upload" type="submit">Upload</button>
+    </form>
     </div>
-
-
 
     <div id="downloadSection" style="display: none;">
         <h2>Download Link:</h2>
         <a id="downloadLink" href="" download>Download File</a>
-        <button id="copyLinkButton">Copy Link</button>
     </div>
-
+</div>
     <script>
-        const uploadForm = document.getElementById('uploadForm');
-        const progressWrapper = document.getElementById('progressWrapper');
-        const progressBar = document.getElementById('progressBar');
         const downloadSection = document.getElementById('downloadSection');
         const downloadLink = document.getElementById('downloadLink');
-        const copyLinkButton = document.getElementById('copyLinkButton');
-        const main = document.getElementById('main');
-        const body = document.getElementById('body');
-       body.style.position="fixed";
-        uploadForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
+        const file = document.getElementById('file');
 
-            const formData = new FormData(uploadForm);
 
-            const request = new XMLHttpRequest();
-            request.open('POST', '/upload');
-            request.upload.addEventListener('progress', (event) => {
-                if (event.lengthComputable) {
-                    const percent = (event.loaded / event.total) * 100;
-                    progressBar.style.width = percent + '%';
-                }
-            });
 
-            request.onload = () => {
-                if (request.status === 200) {
-                    progressWrapper.style.display = 'none';
-                    const response = JSON.parse(request.responseText);
-                    const publicDownloadLink = response.publicDownloadLink;
-                    downloadSection.style.display = 'block';
-                    main.style.display='none';
-                    downloadLink.href = publicDownloadLink;
-                    body.style.position='';
-                    downloadLink.innerText = 'Download File';
-                    copyLinkButton.style.display = 'block'; // Show the copy link button
-                    copyLinkButton.addEventListener('click', () => {
-                        const tempInput = document.createElement('input');
-                        tempInput.value = publicDownloadLink;
-                        document.body.appendChild(tempInput);
-                        tempInput.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(tempInput);
-                        alert('Link copied to clipboard!');
-                    });
-                }
-            };
+        
+    
+            file.value = '';
+        // Check if the URL has a "downloadLink" query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const link = urlParams.get('downloadLink');
 
-            request.send(formData);
-            progressWrapper.style.display = 'block';
-        });
+        if (link) {
+            // Show the download section and set the download link
+            downloadSection.style.display = 'block';
+            downloadLink.href = link;
+        }
+
+
+
+
+
+
+
+
+
     </script>
 </body>
 </html>

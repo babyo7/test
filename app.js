@@ -4,7 +4,7 @@ const fs = require('fs');
 const { google } = require('googleapis');
 
 const app = express();
-const port = 3000;
+const port = 7000;
 
 const oAuth2Client = new google.auth.OAuth2(
     "688965129705-tjcogrfn14ugcph87qoi59m3lumd2pa8.apps.googleusercontent.com",
@@ -75,8 +75,25 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         const uploadedFileId = await uploadFile(req.file);
 
         const publicDownloadLink = `https://drive.google.com/uc?id=${uploadedFileId}`;
-        res.json({ publicDownloadLink }); // Sending JSON response for XMLHttpRequest
-
+        const publicViewLink = `https://drive.google.com/file/d/${uploadedFileId}/view?usp=sharing`;
+        res.send(`
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>File Upload and Download</title>
+            <link rel="stylesheet" type="text/css" href="style.css">
+        </head>
+        <body>
+            <div class="main">
+                <h1>File uploaded Successfully</h1>
+                <a class="link download-link" href="${publicDownloadLink}" download>Direct Download Link</a>
+                <a class="link view-link" href="${publicViewLink}" target="_blank">Public Download Link</a>
+            </div>
+        </body>
+        </html>
+    `);
+    
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Error uploading and generating links.');
@@ -86,3 +103,4 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+ 
