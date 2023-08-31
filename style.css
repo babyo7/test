@@ -3,14 +3,54 @@
     font-family: 'Poppins', sans serif;
 
 text-transform: uppercase;
+
 }
+    /* Define the progress bar styles */
+    #progressWrapper {
+        position: relative;
+        height: 2px;
+        width: 100%;
+        background-color: #ccc;
+        margin-top: 5px;
+        display: none;
+    }
+
+    #progressBar {
+        position: absolute;
+        height: 100%;
+        width: 0;
+        background-color: black;
+    }
+
+    /* Style for the copy link button */
+    #copyLinkButton {
+        display: none;
+        margin-top: 10px;
+        font-size: 16px;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    #copyLinkButton:hover {
+        background-color: #0056b3;
+    }
+
+
 
 body{
 height: 100vh;
+
 display: flex;
 align-items: center;
 justify-content: center;
 background-color: blanchedalmond;
+position: relative;
+
 }
 
 .main{
@@ -20,6 +60,7 @@ background-color: white;
   justify-content: center;
   align-items: center;
   display: flex;
+  position: relative;
     padding: 30px;
     border-radius: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -87,7 +128,7 @@ button:hover{
 @media only screen and (max-width: 800px){
 
     body{
-    position: fixed;
+    position: relative;
     }
 
     .main{
