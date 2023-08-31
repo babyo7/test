@@ -8,10 +8,9 @@
     <style>
         #qrcode {
             text-align: center;
-            margin-top: 30px;
-            margin-left: 80px;
-            width: 130px;
-            height: 130px;
+            margin-top: 23px;
+            margin-left: 70px;
+            
         }
 
         #uploadProgress {
@@ -45,7 +44,7 @@
     </div>
 
     <div id="downloadSection" style="display: none;">
-        <h2>Download Link:</h2>
+        <h2 style="margin-left: 50px;">Download Link:</h2>
         <a id="downloadLink" href="" download style="display: none;">Download File</a>
         <button id="copyLink" onclick="copyToClipboard(document.getElementById('downloadLink').href)">Copy Link</button>
         <div id="qrcode"></div>
@@ -102,8 +101,8 @@
                     const qrcodeDiv = document.getElementById('qrcode');
                     const qrcode = new QRCode(qrcodeDiv, {
                         text: publicDownloadLink,
-                        width: 128,
-                        height: 128,
+                        width: 170,
+                        height: 170,
                     });
                 }
             };
