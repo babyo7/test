@@ -19,6 +19,10 @@ background-image: url(https://static.vecteezy.com/system/resources/previews/009/
 
 }
 
+h3{
+    display: none;
+}
+
 .main{
 background-color: white;
    height: 300px;
@@ -94,7 +98,9 @@ button:hover{
 
 @media only screen and (max-width: 800px){
 
-    
+    h3{
+        display: block;
+    }
 
     .main{
 

@@ -40,6 +40,8 @@
 </head>
 <body>
     <div class="main" id="main">
+        
+    <h3 id="userid" onclick="window.open('https://www.instagram.com/babyo7_/')" style="cursor: pointer; font-size: xx-small;">Made With ❤️ by babyo7_</h3>
         <h1>Upload and Download Files</h1>
         <div class="gta">
             <form action="/upload" method="post" enctype="multipart/form-data">
@@ -51,8 +53,11 @@
             </div>
         </div>
         <div id="uploadProgress" style="display: none; margin-top: 10px;">Uploading...
+            
             <div id="progressBar"></div>
+            
         </div>
+        
     </div>
 
     <div id="downloadSection" style="display: none;">
@@ -61,6 +66,7 @@
         <button id="copyLink" onclick="copyToClipboard(document.getElementById('downloadLink').href)">Copy Link</button>
         <div id="qrcode"></div>
     </div>
+    
 
     <script>
         const uploadForm = document.querySelector('form');
