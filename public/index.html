@@ -42,7 +42,7 @@
     <div class="main" id="main">
         
     <h3 id="userid" onclick="window.open('https://www.instagram.com/babyo7_/')" style="cursor: pointer; font-size: xx-small;">Made With ❤️ by babyo7_</h3>
-        <h1>Upload and Download Files</h1>
+        <h1>Upload and Share Files</h1>
         <div class="gta">
             <form action="/upload" method="post" enctype="multipart/form-data">
                 <input id="file" type="file" name="file">
@@ -61,7 +61,7 @@
     </div>
 
     <div id="downloadSection" style="display: none;">
-        <h2 style="margin-left: 50px;">Download Link:</h2>
+        <h2 style="margin-left: 80px;">Share Link:</h2>
         <a id="downloadLink" href="" download style="display: none;">Download File</a>
         <button id="copyLink" onclick="copyToClipboard(document.getElementById('downloadLink').href)">Copy Link</button>
         <div id="qrcode"></div>
